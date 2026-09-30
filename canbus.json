@@ -1,12 +1,12 @@
 {
-    "speed": 250000,
+    "CAN_SPEED": 250000,
+    "ADC_RESOLUTION": 12,
     "nodes": {
         "hmi": {
             "name": "HMI"
         },
         "sns": {
-            "name": "Sensor",
-            "ADC_RESOLUTION": 12
+            "name": "Sensor"
         },
         "act": {
             "name": "Actuator"
@@ -23,7 +23,7 @@
         "serial": ["DISCONNECTED", "CONNECTED"],
         "snssys": ["OKAY", "ERROR_CANCOM", "ERROR_SENSOR", "ERROR_ACTUATOR"],
         "hmisys": ["OKAY", "ERROR_CANCOM", "ERROR_EEPROM", "WARNING_DATETIME"],
-        "comsys": ["OKAY", "ERROR_CANCOM", "ERROR_DEVICE", "ERROR_I2C", "ERROR_WIFI", "ERROR_NTP", "ERROR_MQTT"],
+        "comsys": ["OKAY", "ERROR_CANCOM", "ERROR_RTC", "ERROR_I2C", "ERROR_WIFI", "ERROR_NTP", "ERROR_MQTT"],
         "actsys": ["OKAY", "ERROR_CANCOM", "ERROR_SENSOR", "ERROR_ACTUATOR", "ERROR_WATER_LEVEL", 
                            "WARNING_TEMPERATURE", "WARNING_HUMIDITY", "WARNING_LIGHT_INTENSITY", 
                            "WARNING_WATER_LEVEL", "WARNING_SOIL_MOISTURE"]
@@ -118,17 +118,15 @@
             "id": "0x105",
             "setter": "com",
             "signals": [
-                {"name": "datetime_year",       "type": "uint16_t", "start":  0, "length": 12, "range" : [2024, 4095], "getters": ["com", "hmi"], "comment": "the rtc current year"},
-                {"name": "datetime_month",      "type": "uint8_t",  "start": 12, "length":  4, "range" : [1, 12],      "getters": ["com", "hmi"], "comment": "the rtc current month"},
-                {"name": "datetime_day",        "type": "uint8_t",  "start": 16, "length":  5, "range" : [1, 31],      "getters": ["com", "hmi"], "comment": "the rtc current day"},
-                {"name": "datetime_hour",       "type": "uint8_t",  "start": 21, "length":  5, "range" : [0, 23],      "getters": ["com", "hmi"], "comment": "the rtc current hour"},
-                {"name": "datetime_minute",     "type": "uint8_t",  "start": 26, "length":  6, "range" : [0 ,59],      "getters": ["com", "hmi"], "comment": "the rtc current minute"},
-                {"name": "datetime_second",     "type": "uint8_t",  "start": 32, "length":  6, "range" : [0, 59],      "getters": ["com", "hmi"], "comment": "the rtc current second"},
-                {"name": "datetime_status",     "type": "uint8_t",  "start": 38, "length":  1, "values": "status",     "getters": ["com", "hmi"], "comment": "the rtc status"},
-                {"name": "storage_free_memory", "type": "uint8_t",  "start": 39, "length":  7, "range" : [0, 100],     "getters": ["com", "hmi"], "comment": "the SD card free space in percent"},
-                {"name": "storage_status",      "type": "uint8_t",  "start": 46, "length":  1, "values": "status",     "getters": ["com", "hmi"], "comment": "the SD card status"},
-                {"name": "terminal_status",     "type": "uint8_t",  "start": 47, "length":  1, "values": "serial",     "getters": ["com", "hmi"], "comment": "the terminal status"},
-                {"name": "com_status",          "type": "uint8_t",  "start": 48, "length":  3, "values": "comsys",     "getters": ["com", "hmi"], "comment": "the communication node status"}
+                {"name": "rtc_year",        "type": "uint16_t", "start":  0, "length": 12, "range" : [2026, 4095], "getters": ["com", "hmi"], "comment": "the rtc current year"},
+                {"name": "rtc_month",       "type": "uint8_t",  "start": 12, "length":  4, "range" : [1, 12],      "getters": ["com", "hmi"], "comment": "the rtc current month"},
+                {"name": "rtc_day",         "type": "uint8_t",  "start": 16, "length":  5, "range" : [1, 31],      "getters": ["com", "hmi"], "comment": "the rtc current day"},
+                {"name": "rtc_hour",        "type": "uint8_t",  "start": 21, "length":  5, "range" : [0, 23],      "getters": ["com", "hmi"], "comment": "the rtc current hour"},
+                {"name": "rtc_minute",      "type": "uint8_t",  "start": 26, "length":  6, "range" : [0 ,59],      "getters": ["com", "hmi"], "comment": "the rtc current minute"},
+                {"name": "rtc_second",      "type": "uint8_t",  "start": 32, "length":  6, "range" : [0, 59],      "getters": ["com", "hmi"], "comment": "the rtc current second"},
+                {"name": "rtc_status",      "type": "uint8_t",  "start": 38, "length":  2, "values": "system",     "getters": ["com", "hmi"], "comment": "the rtc status"},
+                {"name": "terminal_status", "type": "uint8_t",  "start": 40, "length":  1, "values": "serial",     "getters": ["com", "hmi"], "comment": "the terminal status"},
+                {"name": "com_status",      "type": "uint8_t",  "start": 41, "length":  3, "values": "comsys",     "getters": ["com", "hmi"], "comment": "the communication node status"}
             ]
         }
     ]
